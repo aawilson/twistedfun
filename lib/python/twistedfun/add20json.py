@@ -1,4 +1,7 @@
-import simplejson
+try:
+    import simplejson as json
+except ImportError:
+    import json
 
 from twisted.web.resource import Resource
 
@@ -12,7 +15,7 @@ class Add20JSONPage(Resource):
 
         response = {}
         response["result"] = self.the_int + 20
-        return simplejson.dumps(response)
+        return json.dumps(response)
 
 
 class Add20JSONController(Resource):
