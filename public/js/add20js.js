@@ -30,7 +30,13 @@ var add20js = {
             }
             var httpRequest;
 
-            var addTo = parseInt(inputChild.value);
+            var addTo = parseInt(inputChild.value, 10);
+            if(addTo != addTo) {
+                // This is actually testing whether addTo is NaN
+                // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isNaN
+                outputChild.appendChild(document.createTextNode('Please enter a number!'));
+                return false;
+            }
 
             if (window.XMLHttpRequest) {
                 httpRequest = new XMLHttpRequest();
@@ -44,7 +50,7 @@ var add20js = {
                         var response_obj = JSON.parse(httpRequest.responseText);
                         outputChild.appendChild(document.createTextNode(response_obj['result']));
                     } else {
-                        if (console) { console.log("AJAX request failed, status was " + httpRequest.status); }
+                        outputChild.appendChild(document.createTextNode("AJAX request failed, status was " + httpRequest.status));
                     }
                 } else {
                     // some other ready state
